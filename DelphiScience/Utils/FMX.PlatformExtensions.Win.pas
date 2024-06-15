@@ -5,7 +5,7 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Rtti, System.Classes,
   System.Variants,FMX.Types,FMX.Text,FMX.Canvas.GDIP,Winapi.Windows,
   WinApi.Messages,WinApi.TlHelp32,Winapi.GDIPOBJ,Winapi.GDIPAPI,
-  Winapi.ShellAPI,FMX.PlatformExtensions;
+  Winapi.ShellAPI,FMX.PlatformExtensions, FMX.Graphics;
 
 Type
 
@@ -20,6 +20,9 @@ Type
   end;
 
 implementation
+
+uses
+  FMX.TextLayout;
 
 { TPlatformExtensionsWin }
 
@@ -100,8 +103,8 @@ begin
       Layout.MaxSize := PointF(ARect.Width, ARect.Height);
       Layout.Text := Text;
       Layout.WordWrap := False;
-      Layout.HorizontalAlign := TTextAlign.taCenter;
-      Layout.VerticalAlign := TTextAlign.taCenter;
+      Layout.HorizontalAlign := TTextAlign.Center;
+      Layout.VerticalAlign := TTextAlign.Center;
       Layout.Font := Font;
       Layout.RightToLeft := False;
       Layout.EndUpdate;

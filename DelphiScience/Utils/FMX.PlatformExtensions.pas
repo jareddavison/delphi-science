@@ -3,7 +3,8 @@ unit FMX.PlatformExtensions;
 interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Rtti, System.Classes,
-  System.Variants, FMX.Types, FMX.Controls, FMX.Forms, FMX.Dialogs,FMX.Layouts;
+  System.Variants, FMX.Types, FMX.Controls, FMX.Forms, FMX.Dialogs,FMX.Layouts,
+  FMX.Graphics;
 
 Type
 
