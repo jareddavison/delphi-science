@@ -5,7 +5,8 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Rtti, System.Classes,
   System.Variants,FMX.Types,FMX.Text,MacApi.Appkit,Macapi.CoreFoundation,
-  Posix.StdLib, Macapi.Foundation, Macapi.CoreText,Macapi.CocoaTypes,FMX.PlatformExtensions;
+  Posix.StdLib, Macapi.Foundation, Macapi.CoreText,Macapi.CocoaTypes,
+  FMX.PlatformExtensions, FMX.Graphics;
 
 Type
   TPlatformExtensionsMac = class(TPlatformExtensions)
@@ -19,6 +20,9 @@ Type
   end;
 
 implementation
+
+uses
+  FMX.TextLayout, Macapi.Helpers;
 
 { TPlatformExtensionsMac }
 
@@ -38,7 +42,7 @@ begin
     for i := 0 to list.count-1 do
     begin
       lItem := TNSDictionary.Wrap(List.objectAtIndex(i));
-      key := NSSTR(String(PAnsiChar(UTF8Encode('NSApplicationBundleIdentifier'))));
+      key := StrToNSStr(String(PAnsiChar(UTF8Encode('NSApplicationBundleIdentifier'))));
       // You can also use NSApplicationPath or NSApplicationName
       value := TNSString.Wrap(lItem.valueForKey(key));
       Applist.Add(String(value.UTF8String));
@@ -85,8 +89,8 @@ begin
       Layout.MaxSize := PointF(ARect.Width, ARect.Height);
       Layout.Text := Text;
       Layout.WordWrap := False;
-      Layout.HorizontalAlign := TTextAlign.taCenter;
-      Layout.VerticalAlign := TTextAlign.taCenter;
+      Layout.HorizontalAlign := TTextAlign.Center;
+      Layout.VerticalAlign := TTextAlign.Center;
       Layout.Font := Font;
       Layout.RightToLeft := False;
       Layout.EndUpdate;
@@ -134,10 +138,10 @@ begin
   Workspace := TNSWorkspace.Create;
   if fileexists(Url) then
   begin
-    Workspace.openFile(NSSTR(Url));
+    Workspace.openFile(StrToNSStr(Url));
   end else begin
     mURL := TNSURL.Create;
-    mURL.initWithString(NSSTR(Url));
+    mURL.initWithString(StrToNSStr(Url));
     Workspace.openURL(mURL);
   end;
 end;
